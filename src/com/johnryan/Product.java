@@ -11,10 +11,9 @@ public class Product {
         inventory = newInventory;
     }
 
-    public String getName() { return name; }
     public Integer getCost() { return cost; }
     public Integer getInventory() { return inventory; }
 
-    public void setInventory(Integer newInventory) { inventory = newInventory; }
+    public void reduceInventory() { --inventory; }
 
 }

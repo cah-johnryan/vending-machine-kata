@@ -16,19 +16,19 @@ public class VendingMachine {
     private Integer currentAmount = 0;
 
 
-    public VendingMachine() {
-        this(10);
-    }
+    public VendingMachine() { this(10, 10); }
 
-    public VendingMachine(Integer defaultInventoryAmount) {
+    public VendingMachine(Integer defaultProductInventoryAmount) { this(defaultProductInventoryAmount, 10); }
+
+    public VendingMachine(Integer defaultProductInventoryAmount, Integer defaultCoinInventoryAmount) {
         coins.put("PENNY", 1);
         coins.put("NICKEL", 5);
         coins.put("DIME", 10);
         coins.put("QUARTER", 25);
 
-        products.put("COLA", new Product("COLA", 100, defaultInventoryAmount));
-        products.put("CHIPS", new Product("CHIPS", 50, defaultInventoryAmount));
-        products.put("CANDY", new Product("CANDY", 65, defaultInventoryAmount));
+        products.put("COLA", new Product("COLA", 100, defaultProductInventoryAmount));
+        products.put("CHIPS", new Product("CHIPS", 50, defaultProductInventoryAmount));
+        products.put("CANDY", new Product("CANDY", 65, defaultProductInventoryAmount));
     }
 
     public List<String> getProductReturn() { return productReturn; }
@@ -62,8 +62,10 @@ public class VendingMachine {
             {
                 currentAmount -= selectedProduct.getCost();
                 productReturn.add(productName);
+                selectedProduct.reduceInventory();
                 dispenseRemainingChange();
                 displayMessage = "THANK YOU";
+                products.put(productName, selectedProduct);
             } else {
                 displayMessage = "PRICE " + String.format("%3.2f", selectedProduct.getCost()/100.0);
             }

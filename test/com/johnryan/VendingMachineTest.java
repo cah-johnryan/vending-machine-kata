@@ -183,4 +183,25 @@ public class VendingMachineTest {
         assertThat(subject.getDisplay(), equalTo("INSERT COINS"));
     }
 
+    @Test
+    public void productSoldOutShowsAmountAfterwards() {
+        subject = new VendingMachine(0);
+        subject.insertCoin("QUARTER");
+        subject.insertCoin("QUARTER");
+        subject.selectProduct("CHIPS");
+        assertThat(subject.getDisplay(), equalTo("SOLD OUT"));
+        assertThat(subject.getDisplay(), equalTo("0.50"));
+    }
+
+    @Test
+    public void productSoldOutAfterFirstPurchase() {
+        subject = new VendingMachine(1);
+        subject.insertCoin("QUARTER");
+        subject.insertCoin("QUARTER");
+        subject.selectProduct("CHIPS");
+        subject.insertCoin("QUARTER");
+        subject.insertCoin("QUARTER");
+        subject.selectProduct("CHIPS");
+        assertThat(subject.getDisplay(), equalTo("SOLD OUT"));
+    }
 }

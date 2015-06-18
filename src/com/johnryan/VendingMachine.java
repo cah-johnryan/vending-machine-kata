@@ -15,15 +15,20 @@ public class VendingMachine {
     private String displayMessage;
     private Integer currentAmount = 0;
 
+
     public VendingMachine() {
+        this(10);
+    }
+
+    public VendingMachine(Integer defaultInventoryAmount) {
         coins.put("PENNY", 1);
         coins.put("NICKEL", 5);
         coins.put("DIME", 10);
         coins.put("QUARTER", 25);
 
-        products.put("COLA", 100);
-        products.put("CHIPS", 50);
-        products.put("CANDY", 65);
+        products.put("COLA", new Product("COLA", 100, defaultInventoryAmount));
+        products.put("CHIPS", new Product("CHIPS", 50, defaultInventoryAmount));
+        products.put("CANDY", new Product("CANDY", 65, defaultInventoryAmount));
     }
 
     public List<String> getProductReturn() { return productReturn; }
@@ -48,15 +53,20 @@ public class VendingMachine {
 
     public void selectProduct(String productName) {
         if (!products.containsKey(productName)) return;
-        Integer productValue = products.get(productName);
-        if (currentAmount >= productValue)
+        Product selectedProduct = products.get(productName);
+        if (selectedProduct.getInventory() <= 0) {
+            displayMessage = "SOLD OUT";
+        } else
         {
-            currentAmount -= productValue;
-            productReturn.add(productName);
-            dispenseRemainingChange();
-            displayMessage = "THANK YOU";
-        } else {
-            displayMessage = "PRICE " + String.format("%3.2f", productValue/100.0);
+            if (currentAmount >= selectedProduct.getCost())
+            {
+                currentAmount -= selectedProduct.getCost();
+                productReturn.add(productName);
+                dispenseRemainingChange();
+                displayMessage = "THANK YOU";
+            } else {
+                displayMessage = "PRICE " + String.format("%3.2f", selectedProduct.getCost()/100.0);
+            }
         }
     }
 
@@ -78,6 +88,6 @@ public class VendingMachine {
 
     private interface CoinMap extends Map<String, Integer> {}
     private class CoinHashMap extends HashMap<String, Integer> implements CoinMap {}
-    private interface ProductMap extends Map<String, Integer> {}
-    private class ProductHashMap extends HashMap<String, Integer> implements ProductMap {}
+    private interface ProductMap extends Map<String, Product> {}
+    private class ProductHashMap extends HashMap<String, Product> implements ProductMap {}
 }

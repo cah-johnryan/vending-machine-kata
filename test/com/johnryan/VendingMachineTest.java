@@ -2,6 +2,7 @@ package com.johnryan;
 
 import org.junit.Before;
 import org.junit.Test;
+
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
@@ -172,6 +173,15 @@ public class VendingMachineTest {
         subject.insertCoin("DIME");
         subject.returnCoins();
         assertThat(subject.getCoinReturn(), contains("QUARTER","DIME"));
+        assertThat(subject.getDisplay(), equalTo("INSERT COINS"));
+    }
+
+    @Test
+    public void productSoldOut() {
+        subject = new VendingMachine(0);
+        subject.selectProduct("CHIPS");
+        assertThat(subject.getDisplay(), equalTo("SOLD OUT"));
+        assertThat(subject.getDisplay(), equalTo("INSERT COINS"));
     }
 
 }

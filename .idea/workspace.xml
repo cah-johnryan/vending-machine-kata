@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ce3f72e2-a3f0-46bc-b74c-ae27e462a809" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/johnryan/Product.java" afterPath="$PROJECT_DIR$/src/com/johnryan/Product.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/johnryan/VendingMachine.java" afterPath="$PROJECT_DIR$/src/com/johnryan/VendingMachine.java" />
     </list>
     <ignored path="vending-machine-kata.iws" />
@@ -24,11 +23,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="VendingMachineTest.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="VendingMachineTest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/com/johnryan/VendingMachineTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.33266532">
-              <caret line="127" column="0" selection-start-line="127" selection-start-column="0" selection-end-line="127" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="139" column="0" selection-start-line="139" selection-start-column="0" selection-end-line="139" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -36,14 +35,17 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="VendingMachine.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="VendingMachine.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/johnryan/VendingMachine.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="82" column="0" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.96192384">
+              <caret line="78" column="54" selection-start-line="78" selection-start-column="54" selection-end-line="78" selection-end-column="54" />
               <folding>
-                <element signature="method#VendingMachine#2;class#VendingMachine#0" expanded="false" />
+                <element signature="method#VendingMachine#1;class#VendingMachine#0" expanded="false" />
                 <element signature="method#getDisplay#0;class#VendingMachine#0" expanded="false" />
+                <element signature="method#insertCoin#0;class#VendingMachine#0" expanded="false" />
+                <element signature="method#selectProduct#0;class#VendingMachine#0" expanded="false" />
+                <element signature="method#dispenseProduct#0;class#VendingMachine#0" expanded="false" />
                 <element signature="method#dispenseRemainingChange#0;class#VendingMachine#0" expanded="false" />
                 <element signature="method#dispenseCoinsForRemainingAmount#0;class#VendingMachine#0" expanded="false" />
               </folding>
@@ -480,25 +482,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/johnryan/VendingMachine.java">
+    <entry file="file://$PROJECT_DIR$/test/com/johnryan/VendingMachineTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="82" column="0" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
+          <caret line="139" column="0" selection-start-line="139" selection-start-column="0" selection-end-line="139" selection-end-column="0" />
           <folding>
-            <element signature="method#VendingMachine#2;class#VendingMachine#0" expanded="false" />
-            <element signature="method#getDisplay#0;class#VendingMachine#0" expanded="false" />
-            <element signature="method#dispenseRemainingChange#0;class#VendingMachine#0" expanded="false" />
-            <element signature="method#dispenseCoinsForRemainingAmount#0;class#VendingMachine#0" expanded="false" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/com/johnryan/VendingMachineTest.java">
+    <entry file="file://$PROJECT_DIR$/src/com/johnryan/VendingMachine.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33266532">
-          <caret line="127" column="0" selection-start-line="127" selection-start-column="0" selection-end-line="127" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.96192384">
+          <caret line="78" column="54" selection-start-line="78" selection-start-column="54" selection-end-line="78" selection-end-column="54" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="method#VendingMachine#1;class#VendingMachine#0" expanded="false" />
+            <element signature="method#getDisplay#0;class#VendingMachine#0" expanded="false" />
+            <element signature="method#insertCoin#0;class#VendingMachine#0" expanded="false" />
+            <element signature="method#selectProduct#0;class#VendingMachine#0" expanded="false" />
+            <element signature="method#dispenseProduct#0;class#VendingMachine#0" expanded="false" />
+            <element signature="method#dispenseRemainingChange#0;class#VendingMachine#0" expanded="false" />
+            <element signature="method#dispenseCoinsForRemainingAmount#0;class#VendingMachine#0" expanded="false" />
           </folding>
         </state>
       </provider>

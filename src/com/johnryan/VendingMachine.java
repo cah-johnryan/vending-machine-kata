@@ -15,11 +15,9 @@ public class VendingMachine {
     private String displayMessage;
     private Integer currentAmount = 0;
 
-    public VendingMachine() { this(10, 10); }
+    public VendingMachine() { this(10); }
 
-    public VendingMachine(Integer defaultProductInventoryAmount) { this(defaultProductInventoryAmount, 10); }
-
-    public VendingMachine(Integer defaultProductInventoryAmount, Integer defaultCoinInventoryAmount) {
+    public VendingMachine(Integer defaultProductInventoryAmount) {
         acceptableCoins.put("PENNY", 1);
         acceptableCoins.put("NICKEL", 5);
         acceptableCoins.put("DIME", 10);

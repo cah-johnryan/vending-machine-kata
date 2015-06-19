@@ -9,26 +9,25 @@ public class VendingMachine {
 
     private List<String> coinReturn = new ArrayList<String>();
     private List<String> productReturn = new ArrayList<String>();
-    private CoinMap coins = new CoinHashMap();
-    private ProductMap products = new ProductHashMap();
+    private CoinMap acceptableCoins = new CoinHashMap();
+    private ProductMap availableProducts = new ProductHashMap();
 
     private String displayMessage;
     private Integer currentAmount = 0;
-
 
     public VendingMachine() { this(10, 10); }
 
     public VendingMachine(Integer defaultProductInventoryAmount) { this(defaultProductInventoryAmount, 10); }
 
     public VendingMachine(Integer defaultProductInventoryAmount, Integer defaultCoinInventoryAmount) {
-        coins.put("PENNY", 1);
-        coins.put("NICKEL", 5);
-        coins.put("DIME", 10);
-        coins.put("QUARTER", 25);
+        acceptableCoins.put("PENNY", 1);
+        acceptableCoins.put("NICKEL", 5);
+        acceptableCoins.put("DIME", 10);
+        acceptableCoins.put("QUARTER", 25);
 
-        products.put("COLA", new Product("COLA", 100, defaultProductInventoryAmount));
-        products.put("CHIPS", new Product("CHIPS", 50, defaultProductInventoryAmount));
-        products.put("CANDY", new Product("CANDY", 65, defaultProductInventoryAmount));
+        availableProducts.put("COLA", new Product("COLA", 100, defaultProductInventoryAmount));
+        availableProducts.put("CHIPS", new Product("CHIPS", 50, defaultProductInventoryAmount));
+        availableProducts.put("CANDY", new Product("CANDY", 65, defaultProductInventoryAmount));
     }
 
     public List<String> getProductReturn() { return productReturn; }
@@ -41,38 +40,46 @@ public class VendingMachine {
             displayMessage = "";
             return tempMessage;
         }
-        return currentAmount == 0 ? "INSERT COINS" : String.format("%3.2f", currentAmount/100.0);
+        return currentAmount == 0 ? "INSERT COINS" : getCurrencyFormat(currentAmount);
     }
 
     public void insertCoin(String coin) {
-        if (coins.containsKey(coin))
-            currentAmount += coins.get(coin);
+        if (acceptableCoins.containsKey(coin))
+            currentAmount += acceptableCoins.get(coin);
         else
             coinReturn.add(coin);
     }
 
     public void selectProduct(String productName) {
-        if (!products.containsKey(productName)) return;
-        Product selectedProduct = products.get(productName);
+        if (!availableProducts.containsKey(productName)) return;
+        Product selectedProduct = availableProducts.get(productName);
         if (selectedProduct.getInventory() <= 0) {
             displayMessage = "SOLD OUT";
         } else
         {
             if (currentAmount >= selectedProduct.getCost())
             {
-                currentAmount -= selectedProduct.getCost();
-                productReturn.add(productName);
-                selectedProduct.reduceInventory();
-                dispenseRemainingChange();
-                displayMessage = "THANK YOU";
-                products.put(productName, selectedProduct);
+                dispenseProduct(selectedProduct);
             } else {
-                displayMessage = "PRICE " + String.format("%3.2f", selectedProduct.getCost()/100.0);
+                displayMessage = "PRICE " + getCurrencyFormat(selectedProduct.getCost());
             }
         }
     }
 
+    private void dispenseProduct(Product selectedProduct) {
+        currentAmount -= selectedProduct.getCost();
+        productReturn.add(selectedProduct.getName());
+        selectedProduct.reduceInventory();
+        dispenseRemainingChange();
+        displayMessage = "THANK YOU";
+        availableProducts.put(selectedProduct.getName(), selectedProduct);
+    }
+
     public void returnCoins() { dispenseRemainingChange(); }
+
+    private String getCurrencyFormat(Integer amount) {
+        return String.format("%3.2f", (amount/100.0));
+    }
 
     private void dispenseRemainingChange() {
         if (currentAmount >= 25) dispenseCoinsForRemainingAmount("QUARTER", 25);

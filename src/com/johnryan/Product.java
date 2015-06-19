@@ -12,7 +12,9 @@ public class Product {
     }
 
     public String getName() { return name; }
+
     public Integer getCost() { return cost; }
+
     public Integer getInventory() { return inventory; }
 
     public void reduceInventory() { --inventory; }

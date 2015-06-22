@@ -1,7 +1,7 @@
 package com.johnryan;
 
 public class Coin {
-    private Integer cost;
+    private final Integer cost;
     private Integer inventory;
 
     public Coin(Integer newCost, Integer newInventory) {

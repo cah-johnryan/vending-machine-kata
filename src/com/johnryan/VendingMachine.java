@@ -56,13 +56,11 @@ public class VendingMachine {
     }
 
     private boolean machineHasTenCents() {
-        if (availableCoins.get("DIME").getInventory() == 0) return true;
-        else return false;
+        return availableCoins.get("DIME").getInventory() == 0;
     }
 
     private boolean machineHasFiveCents() {
-        if (availableCoins.get("NICKEL").getInventory() == 0) return true;
-        else return false;
+        return availableCoins.get("NICKEL").getInventory() == 0;
     }
 
     public void insertCoin(String coinName) {

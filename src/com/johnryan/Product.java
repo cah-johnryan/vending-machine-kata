@@ -1,8 +1,8 @@
 package com.johnryan;
 
 public class Product {
-    private String name;
-    private Integer cost;
+    private final String name;
+    private final Integer cost;
     private Integer inventory;
 
     public Product(String newName, Integer newCost, Integer newInventory) {

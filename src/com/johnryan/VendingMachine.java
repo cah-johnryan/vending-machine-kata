@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class VendingMachine {
 
-    private final List<String> coinReturn = new ArrayList<String>();
+    private List<String> coinReturn = new ArrayList<String>();
     private final List<String> productReturn = new ArrayList<String>();
     private final CoinMap availableCoins = new CoinHashMap();
     private final ProductMap availableProducts = new ProductHashMap();
@@ -32,7 +32,14 @@ public class VendingMachine {
 
     public List<String> getProductReturn() { return productReturn; }
 
-    public List<String> getCoinReturn() { return coinReturn; }
+    public List<String> getCoinReturn() {
+        List<String> currentCoinReturn = new ArrayList<String>();
+        for (String coinName : coinReturn) {
+            currentCoinReturn.add(coinName);
+        }
+        coinReturn = new ArrayList<String>();
+        return currentCoinReturn;
+    }
 
     public String getDisplay() {
         if(displayMessage != null && !displayMessage.isEmpty()) {
@@ -113,8 +120,14 @@ public class VendingMachine {
 
     private void dispenseCoinsForRemainingAmount(String coinName,Integer coinAmount) {
         for (int i = 0; i < (currentAmount/coinAmount); i++) {
-            availableCoins.get(coinName).reduceInventory();
-            coinReturn.add(coinName);
+            if (availableCoins.get(coinName).getInventory() > 0) {
+                availableCoins.get(coinName).reduceInventory();
+                coinReturn.add(coinName);
+            } else
+            {
+                throw new RuntimeException("Unable to dispense change");
+            }
+
             currentAmount -= coinAmount;
         }
     }

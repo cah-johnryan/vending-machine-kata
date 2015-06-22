@@ -211,6 +211,7 @@ public class VendingMachineTest {
         subject.insertCoin("QUARTER");
         subject.insertCoin("QUARTER");
         subject.selectProduct("CANDY");
+        assertThat(subject.getCoinReturn(), contains("DIME"));
         assertThat(subject.getDisplay(), equalTo("THANK YOU"));
         assertThat(subject.getDisplay(), equalTo("EXACT CHANGE ONLY"));
     }

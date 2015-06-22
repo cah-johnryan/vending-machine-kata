@@ -87,7 +87,6 @@ public class VendingMachineTest {
         assertThat(subject.getProductReturn(), contains("CHIPS"));
     }
 
-
     @Test
     public void iCanBuyCandyWithSixtyFiveCents() {
         subject.insertCoin("QUARTER");
@@ -206,8 +205,25 @@ public class VendingMachineTest {
     }
 
     @Test
-    public void exactChangeOnlyDisplayedWhenMachineHasNoCoins() {
-        subject = new VendingMachine(10, 0);
+    public void exactChangeOnlyDisplayedWhenDoesNotHaveTenCents() {
+        subject = new VendingMachine(10, 1);
+        subject.insertCoin("QUARTER");
+        subject.insertCoin("QUARTER");
+        subject.insertCoin("QUARTER");
+        subject.selectProduct("CANDY");
+        assertThat(subject.getDisplay(), equalTo("THANK YOU"));
+        assertThat(subject.getDisplay(), equalTo("EXACT CHANGE ONLY"));
+    }
+
+    @Test
+    public void exactChangeOnlyDisplayedWhenDoesNotHaveFiveCents() {
+        subject = new VendingMachine(10, 1);
+        subject.insertCoin("QUARTER");
+        subject.insertCoin("QUARTER");
+        subject.insertCoin("DIME");
+        subject.insertCoin("DIME");
+        subject.selectProduct("CANDY");
+        assertThat(subject.getDisplay(), equalTo("THANK YOU"));
         assertThat(subject.getDisplay(), equalTo("EXACT CHANGE ONLY"));
     }
 

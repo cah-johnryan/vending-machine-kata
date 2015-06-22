@@ -52,10 +52,17 @@ public class VendingMachine {
     }
 
     private boolean exactChangeNeeded() {
-        return availableCoins.get("PENNY").getInventory() == 0 ||
-                availableCoins.get("NICKEL").getInventory() == 0 ||
-                availableCoins.get("DIME").getInventory() == 0 ||
-                availableCoins.get("QUARTER").getInventory() == 0;
+        return machineHasTenCents() || machineHasFiveCents();
+    }
+
+    private boolean machineHasTenCents() {
+        if (availableCoins.get("DIME").getInventory() == 0) return true;
+        else return false;
+    }
+
+    private boolean machineHasFiveCents() {
+        if (availableCoins.get("NICKEL").getInventory() == 0) return true;
+        else return false;
     }
 
     public void insertCoin(String coinName) {

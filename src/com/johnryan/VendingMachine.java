@@ -9,19 +9,21 @@ public class VendingMachine {
 
     private List<String> coinReturn = new ArrayList<String>();
     private List<String> productReturn = new ArrayList<String>();
-    private CoinMap acceptableCoins = new CoinHashMap();
+    private CoinMap availableCoins = new CoinHashMap();
     private ProductMap availableProducts = new ProductHashMap();
 
     private String displayMessage;
     private Integer currentAmount = 0;
 
-    public VendingMachine() { this(10); }
+    public VendingMachine() { this(10, 10); }
 
-    public VendingMachine(Integer defaultProductInventoryAmount) {
-        acceptableCoins.put("PENNY", 1);
-        acceptableCoins.put("NICKEL", 5);
-        acceptableCoins.put("DIME", 10);
-        acceptableCoins.put("QUARTER", 25);
+    public VendingMachine(Integer defaultProductInventoryAmount) { this(defaultProductInventoryAmount, 10); }
+
+    public VendingMachine(Integer defaultProductInventoryAmount, Integer defaultCoinInventoryAmount) {
+        availableCoins.put("PENNY", new Coin("PENNY", 1, defaultCoinInventoryAmount));
+        availableCoins.put("NICKEL", new Coin("NICKEL", 5, defaultCoinInventoryAmount));
+        availableCoins.put("DIME", new Coin("DIME", 10, defaultCoinInventoryAmount));
+        availableCoins.put("QUARTER", new Coin("QUARTER", 25, defaultCoinInventoryAmount));
 
         availableProducts.put("COLA", new Product("COLA", 100, defaultProductInventoryAmount));
         availableProducts.put("CHIPS", new Product("CHIPS", 50, defaultProductInventoryAmount));
@@ -38,14 +40,37 @@ public class VendingMachine {
             displayMessage = "";
             return tempMessage;
         }
-        return currentAmount == 0 ? "INSERT COINS" : getCurrencyFormat(currentAmount);
+        if (exactChangeNeeded()) {
+            return "EXACT CHANGE ONLY";
+        }
+        else if (currentAmount == 0) {
+            return "INSERT COINS";
+        }
+        else {
+            return getCurrencyFormat(currentAmount);
+        }
     }
 
-    public void insertCoin(String coin) {
-        if (acceptableCoins.containsKey(coin))
-            currentAmount += acceptableCoins.get(coin);
-        else
-            coinReturn.add(coin);
+    private boolean exactChangeNeeded() {
+        if (availableCoins.get("PENNY").getInventory() == 0 ||
+                availableCoins.get("NICKEL").getInventory() == 0 ||
+                availableCoins.get("DIME").getInventory() == 0 ||
+                availableCoins.get("QUARTER").getInventory() == 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public void insertCoin(String coinName) {
+        if (availableCoins.containsKey(coinName)) {
+            currentAmount += availableCoins.get(coinName).getCost();
+            availableCoins.get(coinName).incrementInventory();
+        }
+        else {
+            coinReturn.add(coinName);
+        }
     }
 
     public void selectProduct(String productName) {
@@ -88,13 +113,14 @@ public class VendingMachine {
 
     private void dispenseCoinsForRemainingAmount(String coinName,Integer coinAmount) {
         for (int i = 0; i < (currentAmount/coinAmount); i++) {
+            availableCoins.get(coinName).reduceInventory();
             coinReturn.add(coinName);
             currentAmount -= coinAmount;
         }
     }
 
-    private interface CoinMap extends Map<String, Integer> {}
-    private class CoinHashMap extends HashMap<String, Integer> implements CoinMap {}
+    private interface CoinMap extends Map<String, Coin> {}
+    private class CoinHashMap extends HashMap<String, Coin> implements CoinMap {}
     private interface ProductMap extends Map<String, Product> {}
     private class ProductHashMap extends HashMap<String, Product> implements ProductMap {}
 }

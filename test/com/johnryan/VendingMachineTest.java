@@ -204,4 +204,11 @@ public class VendingMachineTest {
         subject.selectProduct("CHIPS");
         assertThat(subject.getDisplay(), equalTo("SOLD OUT"));
     }
+
+    @Test
+    public void exactChangeOnlyDisplayedWhenMachineHasNoCoins() {
+        subject = new VendingMachine(10, 0);
+        assertThat(subject.getDisplay(), equalTo("EXACT CHANGE ONLY"));
+    }
+
 }

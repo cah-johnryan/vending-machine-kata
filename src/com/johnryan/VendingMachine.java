@@ -7,10 +7,10 @@ import java.util.Map;
 
 public class VendingMachine {
 
-    private List<String> coinReturn = new ArrayList<String>();
-    private List<String> productReturn = new ArrayList<String>();
-    private CoinMap availableCoins = new CoinHashMap();
-    private ProductMap availableProducts = new ProductHashMap();
+    private final List<String> coinReturn = new ArrayList<String>();
+    private final List<String> productReturn = new ArrayList<String>();
+    private final CoinMap availableCoins = new CoinHashMap();
+    private final ProductMap availableProducts = new ProductHashMap();
 
     private String displayMessage;
     private Integer currentAmount = 0;
@@ -52,15 +52,10 @@ public class VendingMachine {
     }
 
     private boolean exactChangeNeeded() {
-        if (availableCoins.get("PENNY").getInventory() == 0 ||
+        return availableCoins.get("PENNY").getInventory() == 0 ||
                 availableCoins.get("NICKEL").getInventory() == 0 ||
                 availableCoins.get("DIME").getInventory() == 0 ||
-                availableCoins.get("QUARTER").getInventory() == 0) {
-            return true;
-        }
-        else {
-            return false;
-        }
+                availableCoins.get("QUARTER").getInventory() == 0;
     }
 
     public void insertCoin(String coinName) {

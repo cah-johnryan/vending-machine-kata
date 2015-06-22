@@ -20,10 +20,10 @@ public class VendingMachine {
     public VendingMachine(Integer defaultProductInventoryAmount) { this(defaultProductInventoryAmount, 10); }
 
     public VendingMachine(Integer defaultProductInventoryAmount, Integer defaultCoinInventoryAmount) {
-        availableCoins.put("PENNY", new Coin("PENNY", 1, defaultCoinInventoryAmount));
-        availableCoins.put("NICKEL", new Coin("NICKEL", 5, defaultCoinInventoryAmount));
-        availableCoins.put("DIME", new Coin("DIME", 10, defaultCoinInventoryAmount));
-        availableCoins.put("QUARTER", new Coin("QUARTER", 25, defaultCoinInventoryAmount));
+        availableCoins.put("PENNY", new Coin(1, defaultCoinInventoryAmount));
+        availableCoins.put("NICKEL", new Coin(5, defaultCoinInventoryAmount));
+        availableCoins.put("DIME", new Coin(10, defaultCoinInventoryAmount));
+        availableCoins.put("QUARTER", new Coin(25, defaultCoinInventoryAmount));
 
         availableProducts.put("COLA", new Product("COLA", 100, defaultProductInventoryAmount));
         availableProducts.put("CHIPS", new Product("CHIPS", 50, defaultProductInventoryAmount));

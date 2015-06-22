@@ -1,12 +1,10 @@
 package com.johnryan;
 
 public class Coin {
-    private String name;
     private Integer cost;
     private Integer inventory;
 
-    public Coin(String newName, Integer newCost, Integer newInventory) {
-        name = newName;
+    public Coin(Integer newCost, Integer newInventory) {
         cost = newCost;
         inventory = newInventory;
     }

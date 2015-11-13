@@ -1,0 +1,27 @@
+{
+  "name": "vending-machine-kata",
+  "version": "1.0.0",
+  "description": "kata",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cah-johnryan/vending-machine-kata.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cah-johnryan/vending-machine-kata/issues"
+  },
+  "homepage": "https://github.com/cah-johnryan/vending-machine-kata",
+  "devDependencies": {
+    "bower": "^1.6.5",
+    "http-server": "^0.8.5",
+    "testem": "^0.9.11"
+  }
+}

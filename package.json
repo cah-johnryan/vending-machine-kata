@@ -22,6 +22,7 @@
   "devDependencies": {
     "bower": "^1.6.5",
     "http-server": "^0.8.5",
+    "requirejs": "^2.1.18",
     "testem": "^0.9.11"
   }
 }

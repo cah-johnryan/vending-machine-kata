@@ -14,7 +14,7 @@ describe("Vending Machine", function() {
   });
 
   it("has an empty coin return", function() {
-    expect(subject.coinReturn()).toBe("");
+    expect(subject.coinReturn().length).toBe(0);
   });
 
   when("A nickel is inserted", function() {
@@ -134,9 +134,10 @@ describe("Vending Machine", function() {
     });
   });
 
-  when("Chips is selected with enough money inserted", function() {
+  when("Chips is selected with more than enough money inserted", function() {
 
     beforeEach(function() {
+      subject.insert("QUARTER");
       subject.insert("QUARTER");
       subject.insert("QUARTER");
       subject.selectProduct("CHIPS");
@@ -149,6 +150,10 @@ describe("Vending Machine", function() {
     it("displays 'THANK YOU'", function() {
       expect(subject.display()).toEqual("THANK YOU");
     });
+
+    it("the excess change is found in the coin return", function() {
+      expect(subject.coinReturn()[0]).toEqual("QUARTER");
+    });
   });
 
   when("Candy is selected with enough money inserted", function() {
@@ -156,8 +161,7 @@ describe("Vending Machine", function() {
     beforeEach(function() {
       subject.insert("QUARTER");
       subject.insert("QUARTER");
-      subject.insert("DIME");
-      subject.insert("NICKEL");
+      subject.insert("QUARTER");
       subject.selectProduct("CANDY");
     });
 
@@ -167,6 +171,10 @@ describe("Vending Machine", function() {
 
     it("displays 'THANK YOU'", function() {
       expect(subject.display()).toEqual("THANK YOU");
+    });
+
+    it("the excess change is found in the coin return", function() {
+      expect(subject.coinReturn()[0]).toEqual("DIME");
     });
   });
 });

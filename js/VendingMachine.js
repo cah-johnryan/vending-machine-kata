@@ -5,7 +5,7 @@ johnryanKata.vendingMachine = {
     var currentAmount = 0;
     var temporaryDisplayText = "";
     var dispenserContents = "";
-    var coinReturnContents = "";
+    var coinReturnContents = [];
 
     var allowedProducts = {
       "COLA": 100,
@@ -48,6 +48,7 @@ johnryanKata.vendingMachine = {
         if ((currentAmount >= allowedProducts[productName])) {
           currentAmount -= allowedProducts[productName];
           dispenserContents = productName;
+          returnChange(currentAmount);
           temporaryDisplayText = "THANK YOU";
         } else {
           temporaryDisplayText = "PRICE " + amountFormatter(
@@ -58,13 +59,30 @@ johnryanKata.vendingMachine = {
       }
     };
 
+    function returnChange(amount) {
+      while (amount !== 0) {
+        for (var x = 0; x < (Math.floor(amount / 25)); x++) {
+          coinReturnContents.push("QUARTER");
+          amount -= 25;
+        }
+        for (var y = 0; y < (Math.floor(amount / 10)); y++) {
+          coinReturnContents.push("DIME");
+          amount -= 10;
+        }
+        for (var z = 0; z < (Math.floor(amount / 5)); z++) {
+          coinReturnContents.push("NICKEL");
+          amount -= 5;
+        }
+      }
+    }
+
     self.dispenser = function() {
       return dispenserContents;
-    }
+    };
 
     self.coinReturn = function() {
       return coinReturnContents;
-    }
+    };
 
     return self;
   }
